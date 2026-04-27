@@ -1,9 +1,15 @@
 package main
 
 import (
-	"fmt"
+//	"fmt"
+	"github.com/urfave/cli/v3"
+	"os"
+    "context"
+	"github.com/pathsize"
 )
 
 func main(){
-	fmt.Println("Hello from Hexlet!")
+(&cli.Command{}).Run(context.Background(), os.Args)
+
+
 }
