@@ -1,1 +1,3 @@
 build
+lint
+lint-fix
