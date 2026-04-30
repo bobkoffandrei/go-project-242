@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v3"
 	"log"
 	"os"
-   // "strconv"
+	// "strconv"
 )
 
 func main() {
@@ -21,23 +21,23 @@ func main() {
 
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
-                Name:  "human",
-                Aliases: []string{"H"},
-                Value: false,
-                Usage: "human-readable sizes (auto-select unit)",
-            },
-            &cli.BoolFlag{
-                Name:  "all",
-                Aliases: []string{"a"},
-                Value: false,
-                Usage: "include hidden files and directories",
-            },
-            &cli.BoolFlag{
-                Name:  "recursive",
-                Aliases: []string{"r"},
-                Value: false,
-                Usage: "recursive size of directories",
-            },
+				Name:    "human",
+				Aliases: []string{"H"},
+				Value:   false,
+				Usage:   "human-readable sizes (auto-select unit)",
+			},
+			&cli.BoolFlag{
+				Name:    "all",
+				Aliases: []string{"a"},
+				Value:   false,
+				Usage:   "include hidden files and directories",
+			},
+			&cli.BoolFlag{
+				Name:    "recursive",
+				Aliases: []string{"r"},
+				Value:   false,
+				Usage:   "recursive size of directories",
+			},
 		},
 
 		Action: func(ctx context.Context, c *cli.Command) error {
@@ -45,12 +45,10 @@ func main() {
 			if err != nil {
 				return err
 			}
-            
 
 			fmt.Printf("%s\t%s\n", result, c.Args().Get(0))
 			return nil
 		},
-
 	}
 
 	if err := cmd.Run(context.Background(), os.Args); err != nil {
@@ -58,5 +56,3 @@ func main() {
 	}
 
 }
-
-

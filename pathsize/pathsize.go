@@ -53,6 +53,7 @@ func humanSize(s string, b bool) string {
 	return hs
 }
 
+//проверка на папку
 func isDirCheck(dir string) bool {
 	fileInfo, err := os.Stat(dir)
 	if err != nil {
@@ -62,6 +63,7 @@ func isDirCheck(dir string) bool {
 	return fileInfo.IsDir()
 }
 
+//подсчет файла
 func getFileSize(dir string) (string, error) {
 	info, err := os.Lstat(dir)
 	if err != nil {
@@ -72,6 +74,7 @@ func getFileSize(dir string) (string, error) {
 	return r, nil
 }
 
+//подсчет директории
 func getDirSize(dir string, hidden bool, rsv bool) (string, error) {
 	var sumSize int64 = 0
 	files, err := os.ReadDir(dir)
@@ -83,9 +86,9 @@ func getDirSize(dir string, hidden bool, rsv bool) (string, error) {
 
 		tempDir := dir + "/" + file.Name()
 
-		fileInfo2, _ := os.Stat(tempDir)
+		fileInfo, _ := os.Stat(tempDir)
 
-		if !fileInfo2.IsDir() {
+		if !fileInfo.IsDir() {
 			info, err := os.Lstat(tempDir)
 			if err != nil {
 				fmt.Println("Error:", err)
@@ -125,3 +128,4 @@ func getDirSize(dir string, hidden bool, rsv bool) (string, error) {
 func isHiddenFile(s string) bool {
 	return strings.HasPrefix(s, ".")
 }
+
