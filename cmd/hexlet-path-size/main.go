@@ -4,7 +4,7 @@ import (
 	//	"fmt"
 	"context"
 	"fmt"
-	"github.com/bobkoffandrei/go-project-242/pathsize"
+	"github.com/bobkoffandrei/go-project-242/code"
 	"github.com/urfave/cli/v3"
 	"log"
 	"os"
@@ -41,7 +41,7 @@ func main() {
 		},
 
 		Action: func(ctx context.Context, c *cli.Command) error {
-			result, err := pathsize.GetPathSize(c.Args().Get(0), c.Bool("recursive"), c.Bool("human"), c.Bool("all"))
+			result, err := code.GetPathSize(c.Args().Get(0), c.Bool("recursive"), c.Bool("human"), c.Bool("all"))
 			if err != nil {
 				return err
 			}
