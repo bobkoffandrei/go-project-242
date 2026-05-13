@@ -1,4 +1,4 @@
-package code
+package code_test
 
 import (
 	"github.com/bobkoffandrei/go-project-242/code"
@@ -66,8 +66,8 @@ func TestGetPathSize_Dir_Rek_Human(t *testing.T) {
 }
 
 func TestGetPathSize_Dir_Hidden(t *testing.T) {
-	const trueSize = "425715B"
-	value, err := code.GetPathSize("./testdir", false, false, true)
+	const trueSize = "2128575B"
+	value, err := code.GetPathSize("./testdir", true, false, true)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -78,7 +78,7 @@ func TestGetPathSize_Dir_Hidden(t *testing.T) {
 }
 
 func TestGetPathSize_All(t *testing.T) {
-	const trueSize = "1.62MB"
+	const trueSize = "2.03MB"
 	value, err := code.GetPathSize("./testdir", true, true, true)
 		if err != nil {
 			t.Fatal(err)
@@ -87,4 +87,11 @@ func TestGetPathSize_All(t *testing.T) {
 		if trueSize != value {
 			t.Errorf("got %s, want %s", value, trueSize)
 		}
+}
+
+func TestGetPathSize_UnknownPath(t *testing.T) {
+    _, err := code.GetPathSize("./testdir123", true, true, true)
+    if err == nil {
+        t.Errorf("Вернулся nil, вместо ошибки неверного пути")
+    }
 }

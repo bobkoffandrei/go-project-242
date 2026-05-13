@@ -3,7 +3,7 @@ build:
 
 .PHONY: test
 test:
-	go test -v ./testdata
+	go test -v ./...
 
 lint:
 	golangci-lint run

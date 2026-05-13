@@ -33,19 +33,19 @@ func humanSize(s int64, b bool) string {
 	hs := ""
 
 	switch {
-	case s < 1000 || !b:
+	case s < 1024 || !b:
 		hs = fmt.Sprintf("%.0fB", float64(s))
-	case s > 999 && s < 1000000:
+	case s > 1023 && s < 1048576:
 		hs = fmt.Sprintf("%.2fKB", float64(s)/1024)
-	case s > 999999 && s < 1000000000:
+	case s > 1048575 && s < 1073741824:
 		hs = fmt.Sprintf("%.2fMB", float64(s)/(1024*1024))
-	case s > 999999999 && s < 1000000000000:
+	case s > 1073741823 && s < 1073742848:
 		hs = fmt.Sprintf("%.2fGB", float64(s)/(1024*1024*1024))
-	case s > 999999999999 && s < 1000000000000000:
+	case s > 1073742847 && s < 1099512676352:
 		hs = fmt.Sprintf("%.2fTB", float64(s)/(1024*1024*1024*1024))
-	case s > 999999999999999 && s < 1000000000000000000:
+	case s > 1099512676351 && s < 1125900980584448:
 		hs = fmt.Sprintf("%.2fPB", float64(s)/(1024*1024*1024*1024*1024))
-	case s > 999999999999999999:
+	case s > 1125900980584447:
 		hs = fmt.Sprintf("%.2fEB", float64(s)/(1024*1024*1024*1024*1024*1024))
 	}
 	return hs
@@ -105,7 +105,7 @@ func getDirSize(dir string, hidden bool, rsv bool) (int64, error) {
 			}
 
 			if rsv && !hidden{
-				if !isHiddenFile(tempDir){
+				if !isHiddenFile(file.Name()){
 				dirSize, err := getDirSize(tempDir, hidden, rsv)
 				if err != nil {
 				return 0, err

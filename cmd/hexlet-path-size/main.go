@@ -5,28 +5,10 @@ import (
 	"fmt"
 	"github.com/bobkoffandrei/go-project-242/code"
 	"github.com/urfave/cli/v3"
-	"log"
 	"os"
-	"io"
 )
 
 func main() {
-
-	f, err := os.OpenFile("terminal.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		panic(err)
-	}
-
-	defer func() {
-    if err := f.Close(); err != nil {
-        fmt.Fprintf(os.Stderr, "ошибка закрытия файла логов: %v\n", err)
-    }
-}()
-
-
-	mw := io.MultiWriter(os.Stdout, f)
-
-	
 
 	cmd := &cli.Command{
 
@@ -58,7 +40,12 @@ func main() {
 		Action: func(ctx context.Context, c *cli.Command) error {
 
 			if c.Args().Get(0) == "" {
+			err := cli.ShowAppHelp(c)
+			if err != nil {
+				return err
+			}
 			return fmt.Errorf("отсутствуют агрументы")
+
 			}
 
 			result, err := code.GetPathSize(c.Args().Get(0), c.Bool("recursive"), c.Bool("human"), c.Bool("all"))
@@ -67,8 +54,7 @@ func main() {
 			}
 
 
-			//fmt.Printf("%s\t%s\n", result, c.Args().Get(0))
-			_, err = fmt.Fprintf(mw, "%s\t%s\n", result, c.Args().Get(0))
+			fmt.Printf("%s\t%s\n", result, c.Args().Get(0))
 			if err != nil {
 				return err
 			}
@@ -77,7 +63,8 @@ func main() {
 	}
 
 	if err := cmd.Run(context.Background(), os.Args); err != nil {
-		log.Fatal(err)
+		    fmt.Fprintf(os.Stderr, "ошибка выполнения программы: %v\n", err)
+    		os.Exit(1)
 	}
 
 	
